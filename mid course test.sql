@@ -55,5 +55,23 @@ JOIN payment p ON c.customer_id = p.customer_id
 GROUP BY cy.city
 ORDER BY total_revenue DESC
 LIMIT 1;
+EX8 
+SELECT 
+    CONCAT(cy.city, ', ', cn.country) AS "city, country",
+    SUM(p.amount) AS total_revenue
+FROM 
+    city cy
+JOIN 
+    address a ON cy.city_id = a.city_id
+JOIN 
+    customer c ON a.address_id = c.address_id
+JOIN 
+    payment p ON c.customer_id = p.customer_id
+JOIN
+    country cn ON cy.country_id = cn.country_id  
+   GROUP BY cy.city, cn.country
+ORDER BY 
+    total_revenue DESC
+LIMIT 1;
 
 
